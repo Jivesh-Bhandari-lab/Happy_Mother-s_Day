@@ -112,24 +112,6 @@ Open `index.html` in browser.
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots here after uploading:
-
-### Home Page
-![Home](screenshots/home.png)
-
-### Questions Page
-![Questions](screenshots/questions.png)
-
-### Poem Page
-![Poem](screenshots/poem.png)
-
-### Certificate
-![Certificate](screenshots/certificate.png)
-
----
-
 ## 🛠️ Built With
 
 - HTML5
