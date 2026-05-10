@@ -99,7 +99,7 @@ in your browser.
 Clone the repository:
 
 ```bash
-git clone https://github.com/Jivesg-Bhandari-lab/mothers-day-website.git
+git clone https://github.com/Jivesh-Bhandari-lab/mothers-day-website.git
 ```
 
 Go to project folder:
