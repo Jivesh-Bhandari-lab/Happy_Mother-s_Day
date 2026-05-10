@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Mother's Day ❤️</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Petit+Formal+Script&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blush:    #f9e4e8;
+    --rose:     #e8a0b0;
+    --deep-rose:#c4687a;
+    --cream:    #fdf6f0;
+    --peach:    #f5d5c5;
+    --lavender: #e8dff5;
+    --gold:     #d4a96a;
+    --text-dark:#5a3040;
+    --text-mid: #8a5060;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    color: var(--text-dark);
+  }
+
+  /* ===== BACKGROUND ===== */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, #f9d0dc88 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 30%, #ead5f588 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 80%, #f5d5c588 0%, transparent 50%),
+      linear-gradient(160deg, #fdf0f4 0%, #fdf6f0 40%, #f5eef8 100%);
+    animation: bgShift 12s ease-in-out infinite alternate;
+  }
+  @keyframes bgShift {
+    0%   { filter: hue-rotate(0deg) brightness(1); }
+    100% { filter: hue-rotate(8deg) brightness(1.03); }
+  }
+
+  /* Mother silhouette SVG bg */
+  .mother-bg {
+    position: fixed; inset: 0; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 2.5s ease;
+  }
+  .mother-bg.visible { opacity: 1; }
+  .mother-bg svg {
+    width: min(60vw, 500px);
+    filter: drop-shadow(0 0 40px #e8a0b055);
+    animation: motherFloat 8s ease-in-out infinite;
+  }
+  @keyframes motherFloat {
+    0%,100% { transform: translateY(0px) scale(1); }
+    50%      { transform: translateY(-12px) scale(1.01); }
+  }
+
+  /* ===== PETALS ===== */
+  .petal {
+    position: fixed; z-index: 2;
+    width: 14px; height: 18px;
+    border-radius: 60% 40% 60% 40%;
+    opacity: 0;
+    animation: petalFall linear infinite;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ===== HEART PARTICLES ===== */
+  .heart-particle {
+    position: fixed; z-index: 3;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    animation: heartFloat linear infinite;
+  }
+  @keyframes heartFloat {
+    0%   { transform: translateY(0) scale(0.5); opacity: 0; }
+    20%  { opacity: 0.8; }
+    80%  { opacity: 0.4; }
+    100% { transform: translateY(-120px) scale(1.2); opacity: 0; }
+  }
+
+  /* ===== SCREEN LAYERS ===== */
+  .screen {
+    position: fixed; inset: 0; z-index: 10;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 1.2s ease;
+  }
+  .screen.active { opacity: 1; pointer-events: all; }
+
+  /* ===== FLOWER BLOOM ===== */
+  #flower-screen { z-index: 20; background: var(--cream); }
+
+  .flower-wrap {
+    position: relative; width: 200px; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .petal-bloom {
+    position: absolute;
+    width: 70px; height: 110px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    transform-origin: bottom center;
+    opacity: 0;
+    animation: bloomPetal 1.8s ease forwards;
+  }
+  .petal-bloom:nth-child(1)  { background: linear-gradient(to top, #f9b8c8, #fde8ef); transform: rotate(0deg)   translateY(-50px); animation-delay: 0.1s; }
+  .petal-bloom:nth-child(2)  { background: linear-gradient(to top, #f0a8bc, #fde0ea); transform: rotate(45deg)  translateY(-50px); animation-delay: 0.25s; }
+  .petal-bloom:nth-child(3)  { background: linear-gradient(to top, #f9b8c8, #fde8ef); transform: rotate(90deg)  translateY(-50px); animation-delay: 0.4s; }
+  .petal-bloom:nth-child(4)  { background: linear-gradient(to top, #f0a8bc, #fde0ea); transform: rotate(135deg) translateY(-50px); animation-delay: 0.55s; }
+  .petal-bloom:nth-child(5)  { background: linear-gradient(to top, #f9b8c8, #fde8ef); transform: rotate(180deg) translateY(-50px); animation-delay: 0.7s; }
+  .petal-bloom:nth-child(6)  { background: linear-gradient(to top, #f0a8bc, #fde0ea); transform: rotate(225deg) translateY(-50px); animation-delay: 0.85s; }
+  .petal-bloom:nth-child(7)  { background: linear-gradient(to top, #f9b8c8, #fde8ef); transform: rotate(270deg) translateY(-50px); animation-delay: 1.0s; }
+  .petal-bloom:nth-child(8)  { background: linear-gradient(to top, #f0a8bc, #fde0ea); transform: rotate(315deg) translateY(-50px); animation-delay: 1.1s; }
+  .flower-center {
+    position: absolute; width: 40px; height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd0a0, #f0a060);
+    box-shadow: 0 0 20px #f0a06088;
+    z-index: 5;
+    opacity: 0; animation: fadeInScale 0.6s 1.3s ease forwards;
+  }
+  @keyframes bloomPetal {
+    0%   { opacity: 0; transform: rotate(var(--r, 0deg)) translateY(-20px) scale(0.3); }
+    60%  { opacity: 1; }
+    100% { opacity: 0.9; transform: rotate(var(--r, 0deg)) translateY(-50px) scale(1); }
+  }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .flower-text {
+    margin-top: 30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; letter-spacing: 0.3em;
+    color: var(--rose); opacity: 0;
+    animation: fadeUp 1s 1.8s ease forwards;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main-screen { z-index: 10; }
+
+  .main-inner {
+    text-align: center;
+    padding: 2rem;
+    animation: fadeUp 1.2s ease forwards;
+  }
+
+  .title-day {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    color: var(--deep-rose);
+    text-shadow: 0 0 40px #e8a0b066, 0 2px 4px #c4687a33;
+    line-height: 1.3;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s ease forwards;
+  }
+  .title-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    color: var(--text-mid);
+    margin-top: 0.4rem;
+    opacity: 0;
+    animation: fadeUp 1s 0.7s ease forwards;
+  }
+
+  .divider {
+    margin: 1.5rem auto;
+    width: 80px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--rose), transparent);
+    opacity: 0;
+    animation: fadeIn 1s 1s ease forwards;
+  }
+
+  .fields-wrap {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 1rem;
+    opacity: 0; animation: fadeUp 1s 1.2s ease forwards;
+  }
+  .field-row {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--text-mid);
+  }
+  .field-row label { font-style: italic; min-width: 50px; }
+  .field-row input {
+    background: transparent;
+    border: none; border-bottom: 1px solid var(--rose);
+    padding: 4px 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: var(--text-dark);
+    width: 180px; outline: none;
+    transition: border-color 0.3s;
+  }
+  .field-row input::placeholder { color: var(--rose); opacity: 0.7; }
+  .field-row input:focus { border-color: var(--deep-rose); }
+
+  /* Glow button */
+  .glow-btn {
+    margin-top: 2.2rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #e8a0b0, #c4687a);
+    border: none; border-radius: 60px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; letter-spacing: 0.05em;
+    color: #fff; cursor: pointer;
+    box-shadow: 0 0 30px #e8a0b066, 0 4px 20px #c4687a44;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0; animation: fadeUp 1s 1.6s ease forwards;
+    position: relative; overflow: hidden;
+  }
+  .glow-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #f9b8c8, #e8a0b0);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .glow-btn:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 0 50px #e8a0b099, 0 8px 30px #c4687a55; }
+  .glow-btn:hover::before { opacity: 1; }
+  .glow-btn span { position: relative; z-index: 1; }
+  .btn-pulse {
+    position: absolute; inset: 0; border-radius: 60px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 0 #e8a0b055; }
+    50%      { box-shadow: 0 0 0 18px transparent; }
+  }
+
+  /* ===== SHARED ANIMATIONS ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Music toggle */
+  .music-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    background: rgba(255,255,255,0.7); border: 1px solid var(--rose);
+    border-radius: 50%; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.2rem;
+    box-shadow: 0 2px 12px #e8a0b033;
+    transition: transform 0.3s, background 0.3s;
+    backdrop-filter: blur(6px);
+  }
+  .music-btn:hover { transform: scale(1.15); background: rgba(255,255,255,0.9); }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .title-day { font-size: 2rem; }
+    .glow-btn  { padding: 0.85rem 2rem; font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient background -->
+<div class="bg"></div>
+
+<!-- Mother silhouette background -->
+<div class="mother-bg" id="motherBg">
+  <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#f9e4e8" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#f9e4e8" stop-opacity="0"/>
+      </radialGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="4"/></filter>
+    </defs>
+    <!-- Soft glow halo -->
+    <ellipse cx="200" cy="250" rx="190" ry="230" fill="url(#glow)"/>
+    <!-- Mother body -->
+    <ellipse cx="185" cy="460" rx="90" ry="60" fill="#e8b0c0" opacity="0.3" filter="url(#soft)"/>
+    <!-- Mother torso -->
+    <path d="M130,300 Q150,260 185,250 Q220,260 240,300 L250,420 Q200,450 150,420 Z"
+          fill="#d4899a" opacity="0.25" filter="url(#soft)"/>
+    <!-- Mother head -->
+    <circle cx="185" cy="215" r="50" fill="#d4899a" opacity="0.25" filter="url(#soft)"/>
+    <!-- Hair flowing -->
+    <path d="M140,200 Q120,240 125,280 Q150,270 155,250 Q165,230 175,220"
+          fill="#c07888" opacity="0.2" filter="url(#soft)"/>
+    <path d="M230,200 Q250,230 245,270 Q220,265 215,245 Q205,225 195,215"
+          fill="#c07888" opacity="0.2" filter="url(#soft)"/>
+    <!-- Baby being held -->
+    <ellipse cx="210" cy="330" rx="30" ry="38" fill="#f0c0b0" opacity="0.3" filter="url(#soft)"/>
+    <circle cx="210" cy="300" r="22" fill="#f0c0b0" opacity="0.3" filter="url(#soft)"/>
+    <!-- Mother arms cradling -->
+    <path d="M145,300 Q160,320 180,335 Q200,345 215,340 Q235,335 245,310"
+          stroke="#d4899a" stroke-width="12" fill="none" opacity="0.25"
+          stroke-linecap="round" filter="url(#soft)"/>
+    <!-- Soft halo around the pair -->
+    <circle cx="195" cy="310" r="100" fill="none" stroke="#f9b8c8" stroke-width="1.5" opacity="0.3"/>
+    <circle cx="195" cy="310" r="130" fill="none" stroke="#f9b8c8" stroke-width="0.8" opacity="0.15"/>
+  </svg>
+</div>
+
+<!-- Flower bloom screen -->
+<div class="screen active" id="flower-screen">
+  <div class="flower-wrap">
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="petal-bloom"></div>
+    <div class="flower-center"></div>
+  </div>
+  <div class="flower-text">A gift from the heart...</div>
+</div>
+
+<!-- Main screen -->
+<div class="screen" id="main-screen">
+  <div class="main-inner">
+    <div class="title-day">Happy Mother's Day ❤️</div>
+    <div class="title-sub">To My Best Mom</div>
+    <div class="divider"></div>
+    <div class="fields-wrap">
+      <div class="field-row">
+        <label>From:</label>
+        <input type="text" value="Jivesh Bhandari" id="fromName">
+      </div>
+      <div class="field-row">
+        <label>To:</label>
+        <input type="text" value="Geeta Bhandari — AKA Best Mother in the world" id="toName" style="width:320px;">
+      </div>
+    </div>
+    <button class="glow-btn" onclick="goToQuestions()">
+      <div class="btn-pulse"></div>
+      <span>Open Your Surprise ❤️</span>
+    </button>
+  </div>
+</div>
+
+<!-- Music toggle -->
+<div class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Toggle music">🎵</div>
+
+<!-- Audio (silent lullaby-like tone via Web Audio) -->
+<audio id="bgMusic" loop></audio>
+
+<script>
+/* ===== PETALS ===== */
+const petalColors = [
+  '#f9b8c8','#f0d0e0','#e8c8f0','#f5d5c5','#f9d0dc','#eec8e8'
+];
+function createPetals() {
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const color = petalColors[Math.floor(Math.random() * petalColors.length)];
+    p.style.cssText = `
+      left: ${Math.random()*100}%;
+      top: ${-20 - Math.random()*40}px;
+      background: ${color};
+      width: ${10+Math.random()*10}px;
+      height: ${14+Math.random()*12}px;
+      animation-duration: ${6+Math.random()*8}s;
+      animation-delay: ${Math.random()*10}s;
+      border-radius: ${50+Math.random()*20}% ${50-Math.random()*10}% ${50+Math.random()*10}% ${40+Math.random()*20}% / ${60+Math.random()*10}% ${60+Math.random()*10}% ${40-Math.random()*10}% ${40+Math.random()*10}%;
+      opacity: 0.7;
+    `;
+    document.body.appendChild(p);
+  }
+}
+
+/* ===== HEART PARTICLES ===== */
+function spawnHeart() {
+  const h = document.createElement('div');
+  h.className = 'heart-particle';
+  h.textContent = ['❤️','🌸','💕','✨'][Math.floor(Math.random()*4)];
+  h.style.cssText = `
+    left: ${20+Math.random()*60}%;
+    bottom: ${10+Math.random()*20}%;
+    font-size: ${10+Math.random()*12}px;
+    animation-duration: ${3+Math.random()*3}s;
+    animation-delay: ${Math.random()*2}s;
+  `;
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 6000);
+}
+
+/* ===== SEQUENCE ===== */
+createPetals();
+
+// After bloom animation, transition to main screen
+setTimeout(() => {
+  const flowerScreen = document.getElementById('flower-screen');
+  const mainScreen   = document.getElementById('main-screen');
+  const motherBg     = document.getElementById('motherBg');
+
+  flowerScreen.style.transition = 'opacity 1.5s ease';
+  flowerScreen.style.opacity = '0';
+  setTimeout(() => {
+    flowerScreen.style.display = 'none';
+    mainScreen.classList.add('active');
+    motherBg.classList.add('visible');
+    // Start heart spawning
+    setInterval(spawnHeart, 2500);
+  }, 1500);
+}, 3200);
+
+/* ===== NAVIGATION ===== */
+function goToQuestions() {
+  const from = document.getElementById('fromName').value.trim();
+  const to   = document.getElementById('toName').value.trim();
+  const params = new URLSearchParams({ from: from || 'Your Son', to: to || 'Mom' });
+  document.body.style.transition = 'opacity 0.8s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => {
+    window.location.href = `questions.html?${params}`;
+  }, 800);
+}
+
+/* ===== MUSIC (Web Audio) ===== */
+let audioCtx, musicOn = false;
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (!musicOn) {
+    startAmbientMusic();
+    btn.textContent = '🔊'; musicOn = true;
+  } else {
+    stopAmbientMusic();
+    btn.textContent = '🎵'; musicOn = false;
+  }
+}
+let oscillators = [];
+function startAmbientMusic() {
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const notes = [261.63, 329.63, 392.00, 440.00, 523.25]; // C major pentatonic
+  notes.forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime + i * 0.5);
+    oscillators.push(osc);
+  });
+}
+function stopAmbientMusic() {
+  oscillators.forEach(o => { try { o.stop(); } catch(e){} });
+  oscillators = [];
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+}
+</script>
+</body>
+</html>

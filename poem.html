@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Mom ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Petit+Formal+Script&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blush:    #f9e4e8;
+    --rose:     #e8a0b0;
+    --deep-rose:#c4687a;
+    --cream:    #fdf6f0;
+    --peach:    #f5d5c5;
+    --lavender: #e8dff5;
+    --gold:     #d4a96a;
+    --text-dark:#5a3040;
+    --text-mid: #8a5060;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(170deg, #fdf0f4 0%, #fdf6f0 35%, #f5eef8 70%, #fdf6f0 100%);
+    font-family: 'Jost', sans-serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse at 15% 40%, #f9d0dc44 0%, transparent 55%),
+      radial-gradient(ellipse at 85% 20%, #ead5f544 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 85%, #f5d5c544 0%, transparent 55%);
+    pointer-events: none;
+  }
+
+  /* ===== PETALS ===== */
+  .petal {
+    position: fixed; z-index: 1;
+    border-radius: 60% 40% 60% 40%;
+    opacity: 0; pointer-events: none;
+    animation: petalFall linear infinite;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.65; }
+    90%  { opacity: 0.4; }
+    100% { transform: translateY(110vh) rotate(540deg); opacity: 0; }
+  }
+
+  /* Floating hearts */
+  .float-heart {
+    position: fixed; z-index: 1;
+    font-size: 16px; opacity: 0;
+    pointer-events: none;
+    animation: floatHeart linear infinite;
+  }
+  @keyframes floatHeart {
+    0%   { transform: translateY(100vh) scale(0.5) rotate(-10deg); opacity: 0; }
+    15%  { opacity: 0.7; }
+    85%  { opacity: 0.4; }
+    100% { transform: translateY(-10vh) scale(1.2) rotate(10deg); opacity: 0; }
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    position: relative; z-index: 2;
+    max-width: 680px; margin: 0 auto;
+    padding: 4rem 1.5rem 5rem;
+  }
+
+  /* ===== POEM SECTION ===== */
+  .poem-header {
+    text-align: center; margin-bottom: 3rem;
+    opacity: 0; animation: fadeUp 1s 0.3s ease forwards;
+  }
+  .poem-title {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    color: var(--deep-rose);
+    text-shadow: 0 0 40px #e8a0b066;
+    line-height: 1.3;
+  }
+  .header-ornament {
+    margin: 1rem auto 0;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    color: var(--rose); font-size: 0.9rem;
+  }
+  .ornament-line {
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--rose));
+  }
+  .ornament-line.right { background: linear-gradient(to left, transparent, var(--rose)); }
+
+  /* Poem card */
+  .poem-card {
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(232,160,176,0.4);
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 50px #e8a0b022, 0 2px 12px #c4687a11;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 1.2s 0.6s ease forwards;
+    position: relative; overflow: hidden;
+  }
+  .poem-card::before {
+    content: '❝';
+    position: absolute; top: 1.5rem; left: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; color: var(--rose);
+    opacity: 0.12; line-height: 1;
+  }
+  .poem-card::after {
+    content: '❞';
+    position: absolute; bottom: 0.5rem; right: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; color: var(--rose);
+    opacity: 0.12; line-height: 1;
+  }
+
+  .poem-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+    line-height: 2; color: var(--text-dark);
+    display: block; position: relative; z-index: 1;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .poem-line.visible { opacity: 1; transform: translateY(0); }
+
+  .poem-spacer {
+    display: block; height: 1.2rem;
+  }
+
+  .poem-highlight {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    color: var(--deep-rose);
+    font-style: normal;
+    text-shadow: 0 0 20px #e8a0b044;
+    display: block; margin-top: 0.5rem;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .poem-highlight.visible { opacity: 1; transform: translateY(0); }
+
+  .grateful-text {
+    text-align: center; margin: 1.5rem 0 2.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 1.15rem;
+    color: var(--rose); letter-spacing: 0.05em;
+    opacity: 0; animation: fadeUp 1s 2s ease forwards;
+  }
+
+  /* ===== MEMORY FRAME SECTION ===== */
+  .memory-section {
+    opacity: 0; animation: fadeUp 1s 2.3s ease forwards;
+  }
+
+  .memory-heading {
+    text-align: center; margin-bottom: 1.8rem;
+  }
+  .memory-title {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    color: var(--deep-rose);
+    text-shadow: 0 0 20px #e8a0b044;
+  }
+  .memory-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.95rem;
+    color: var(--text-mid); margin-top: 0.4rem;
+  }
+
+  /* Drop zone */
+  .drop-zone {
+    border: 2px dashed rgba(232,160,176,0.6);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s, transform 0.3s;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(8px);
+    position: relative;
+    min-height: 200px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.8rem;
+  }
+  .drop-zone.drag-over {
+    border-color: var(--deep-rose);
+    background: rgba(249,184,200,0.15);
+    transform: scale(1.01);
+  }
+  .drop-icon { font-size: 2.5rem; }
+  .drop-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 1rem;
+    color: var(--text-mid);
+  }
+  .drop-hint small { display: block; font-size: 0.85rem; opacity: 0.7; margin-top: 4px; }
+
+  /* Photo frame */
+  .photo-frame {
+    display: none;
+    margin: 0 auto;
+    position: relative; text-align: center;
+  }
+  .photo-frame.visible { display: block; animation: frameReveal 0.8s ease; }
+
+  @keyframes frameReveal {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .frame-outer {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 12px;
+    background: linear-gradient(135deg, #f9b8c8, #e8a0b0, #d4899a, #f9b8c8);
+    box-shadow: 0 8px 40px #e8a0b044, 0 0 0 3px rgba(255,255,255,0.7);
+    animation: frameGlow 4s ease-in-out infinite;
+  }
+  @keyframes frameGlow {
+    0%,100% { box-shadow: 0 8px 40px #e8a0b044, 0 0 0 3px rgba(255,255,255,0.7); }
+    50%      { box-shadow: 0 12px 60px #e8a0b088, 0 0 0 3px rgba(255,255,255,0.9); }
+  }
+  .frame-inner {
+    border-radius: 12px; overflow: hidden;
+    position: relative;
+  }
+  #previewImg {
+    display: block;
+    max-width: min(360px, 80vw);
+    max-height: 320px;
+    width: auto; height: auto;
+    border-radius: 12px;
+  }
+
+  .frame-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 1rem;
+    color: var(--text-mid); margin-top: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  /* Heart particles around frame */
+  .frame-hearts {
+    position: absolute; inset: -20px;
+    pointer-events: none; overflow: visible;
+  }
+  .frame-heart {
+    position: absolute;
+    font-size: 16px; opacity: 0;
+    animation: frameHeartFloat 3s ease-in-out infinite;
+  }
+  @keyframes frameHeartFloat {
+    0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+    30%  { opacity: 1; }
+    70%  { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-50px) scale(1.2); }
+  }
+
+  .change-photo-btn {
+    margin-top: 1rem;
+    background: none; border: 1px solid var(--rose);
+    border-radius: 30px; padding: 0.4rem 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.9rem;
+    color: var(--rose); cursor: pointer;
+    transition: all 0.3s;
+  }
+  .change-photo-btn:hover { background: var(--rose); color: #fff; }
+
+  /* Hidden file input */
+  #fileInput { display: none; }
+
+  /* Bottom section */
+  .bottom-msg {
+    text-align: center; margin-top: 3rem;
+    opacity: 0; animation: fadeUp 1s 2.8s ease forwards;
+  }
+  .mothers-day-text {
+    font-family: 'Petit Formal Script', cursive;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--deep-rose);
+    text-shadow: 0 0 30px #e8a0b066;
+    display: block; margin-bottom: 0.5rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center; margin-top: 3rem; padding-top: 2rem;
+    border-top: 1px solid rgba(232,160,176,0.2);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.9rem;
+    color: var(--rose); letter-spacing: 0.05em;
+    opacity: 0; animation: fadeUp 1s 3.1s ease forwards;
+  }
+
+  /* Back link */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-bottom: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.9rem;
+    color: var(--rose); text-decoration: none;
+    opacity: 0.7; transition: opacity 0.3s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  /* Music */
+  .music-btn {
+    position: fixed; bottom: 24px; right: 24px; z-index: 100;
+    background: rgba(255,255,255,0.7); border: 1px solid var(--rose);
+    border-radius: 50%; width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.2rem;
+    box-shadow: 0 2px 12px #e8a0b033;
+    transition: transform 0.3s;
+    backdrop-filter: blur(6px);
+  }
+  .music-btn:hover { transform: scale(1.15); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 500px) {
+    .poem-card { padding: 2rem 1.4rem; }
+    .container { padding: 2.5rem 1.2rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Petals + hearts by JS -->
+
+<div class="container">
+  <a href="questions.html" class="back-link">← Back</a>
+
+  <!-- POEM -->
+  <div class="poem-header">
+    <div class="poem-title">For My Mom ❤️</div>
+    <div class="header-ornament">
+      <span class="ornament-line"></span>
+      🌸
+      <span class="ornament-line right"></span>
+    </div>
+  </div>
+
+  <div class="poem-card" id="poemCard">
+    <span class="poem-line" data-delay="0">You held my hand</span>
+    <span class="poem-line" data-delay="100">before I knew how to walk.</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="300">You stayed awake</span>
+    <span class="poem-line" data-delay="400">before I knew what sacrifice meant.</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="600">You worried for me</span>
+    <span class="poem-line" data-delay="700">before I understood love.</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="900">And if someday</span>
+    <span class="poem-line" data-delay="1000">I become someone good,</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="1200">know this:</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="1400">there is a little bit of you</span>
+    <span class="poem-line" data-delay="1500">inside every good thing I become.</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-line" data-delay="1700">No title ever suited you more</span>
+    <span class="poem-line" data-delay="1800">than simply:</span>
+    <span class="poem-spacer"></span>
+    <span class="poem-highlight" data-delay="2100">Mom ❤️</span>
+  </div>
+
+  <div class="grateful-text">Forever grateful for you</div>
+
+  <!-- MEMORY FRAME -->
+  <div class="memory-section">
+    <div class="memory-heading">
+      <div class="memory-title">Our Favorite Memory ❤️</div>
+      <div class="memory-subtitle">Drag & drop your favorite photo together</div>
+    </div>
+
+    <!-- Drop zone -->
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-icon">🌸</div>
+      <div class="drop-hint">
+        Drop your photo here
+        <small>or click to choose</small>
+      </div>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <!-- Photo frame (hidden until upload) -->
+    <div class="photo-frame" id="photoFrame">
+      <div class="frame-outer">
+        <div class="frame-inner">
+          <img id="previewImg" src="" alt="Our memory">
+          <div class="frame-hearts" id="frameHearts"></div>
+        </div>
+      </div>
+      <div class="frame-caption">Our beautiful memory together 🌸</div>
+      <br>
+      <button class="change-photo-btn" onclick="resetPhoto()">Change photo</button>
+      <br><br>
+      <button id="certBtn" onclick="goToCert()" style="display:none;padding:0.9rem 2.2rem;background:linear-gradient(135deg,#e8a0b0,#c4687a);border:none;border-radius:60px;font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;cursor:pointer;box-shadow:0 0 28px #e8a0b055;transition:transform 0.3s,box-shadow 0.3s;animation:glowPulse 3s ease-in-out infinite;" onmouseover="this.style.transform='translateY(-3px) scale(1.04)'" onmouseout="this.style.transform='none'">
+        🏅 Create Her Certificate ❤️
+      </button>
+    </div>
+  </div>
+
+  <!-- Bottom message -->
+  <div class="bottom-msg">
+    <span class="mothers-day-text">Happy Mother's Day, Mom ❤️</span>
+  </div>
+
+  <footer>Made with love by your son 💕 &nbsp;·&nbsp; <a href="index.html" style="color:var(--rose);text-decoration:none;font-style:italic;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Back to Beginning</a></footer>
+</div>
+
+<div class="music-btn" id="musicBtn" onclick="toggleMusic()">🎵</div>
+
+<script>
+/* ===== PETALS ===== */
+const colors = ['#f9b8c8','#f0d0e0','#e8c8f0','#f5d5c5','#f9d0dc'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'petal';
+  p.style.cssText = `left:${Math.random()*100}%;top:${-20-Math.random()*40}px;
+    background:${colors[~~(Math.random()*colors.length)]};
+    width:${10+Math.random()*10}px;height:${14+Math.random()*12}px;
+    animation-duration:${7+Math.random()*9}s;animation-delay:${Math.random()*12}s;`;
+  document.body.appendChild(p);
+}
+
+/* ===== FLOATING HEARTS ===== */
+const heartEmojis = ['❤️','🌸','💕','✨','🌹','💗'];
+for (let i = 0; i < 10; i++) {
+  const h = document.createElement('div');
+  h.className = 'float-heart';
+  h.textContent = heartEmojis[~~(Math.random()*heartEmojis.length)];
+  h.style.cssText = `left:${5+Math.random()*90}%;font-size:${12+Math.random()*14}px;
+    animation-duration:${8+Math.random()*10}s;animation-delay:${Math.random()*15}s;`;
+  document.body.appendChild(h);
+}
+
+/* ===== POEM LINE REVEAL (IntersectionObserver) ===== */
+const poemCard = document.getElementById('poemCard');
+const lines = poemCard.querySelectorAll('.poem-line, .poem-highlight');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      lines.forEach(line => {
+        const delay = parseInt(line.dataset.delay || 0);
+        setTimeout(() => line.classList.add('visible'), delay + 400);
+      });
+      observer.disconnect();
+    }
+  });
+}, { threshold: 0.2 });
+observer.observe(poemCard);
+
+/* ===== DRAG & DROP ===== */
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const photoFrame = document.getElementById('photoFrame');
+const previewImg = document.getElementById('previewImg');
+
+dropZone.addEventListener('click', () => fileInput.click());
+fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+
+dropZone.addEventListener('dragover', e => {
+  e.preventDefault();
+  dropZone.classList.add('drag-over');
+});
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+});
+
+function handleFile(file) {
+  if (!file || !file.type.startsWith('image/')) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    previewImg.src = e.target.result;
+    try { localStorage.setItem('momPhoto', e.target.result); } catch(err) {}
+    dropZone.style.display = 'none';
+    photoFrame.classList.add('visible');
+    createFrameHearts();
+    document.getElementById('certBtn').style.display = 'inline-block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetPhoto() {
+  dropZone.style.display = 'flex';
+  photoFrame.classList.remove('visible');
+  previewImg.src = '';
+  fileInput.value = '';
+  document.getElementById('frameHearts').innerHTML = '';
+  document.getElementById('certBtn').style.display = 'none';
+  try { localStorage.removeItem('momPhoto'); } catch(e) {}
+}
+
+function goToCert() {
+  document.body.style.transition = 'opacity 0.8s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => { window.location.href = 'certificate.html'; }, 800);
+}
+
+function createFrameHearts() {
+  const container = document.getElementById('frameHearts');
+  container.innerHTML = '';
+  const positions = [
+    {top:'5%',left:'5%'},{top:'5%',right:'5%'},
+    {bottom:'10%',left:'5%'},{bottom:'10%',right:'5%'},
+    {top:'40%',left:'-5%'},{top:'40%',right:'-5%'},
+    {top:'20%',left:'30%'},{top:'70%',left:'50%'},
+  ];
+  positions.forEach((pos, i) => {
+    const h = document.createElement('span');
+    h.className = 'frame-heart';
+    h.textContent = heartEmojis[i % heartEmojis.length];
+    h.style.cssText = Object.entries(pos).map(([k,v]) => `${k}:${v}`).join(';');
+    h.style.animationDelay = `${i * 0.4}s`;
+    h.style.animationDuration = `${2.5 + Math.random()}s`;
+    container.appendChild(h);
+  });
+}
+
+/* ===== MUSIC ===== */
+let audioCtx, musicOn = false, oscillators = [];
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+  if (!musicOn) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    [261.63, 293.66, 329.63, 392.00, 440.00].forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine'; osc.frequency.value = freq;
+      gain.gain.value = 0.035;
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.start(audioCtx.currentTime + i * 0.6);
+      oscillators.push(osc);
+    });
+    btn.textContent = '🔊'; musicOn = true;
+  } else {
+    oscillators.forEach(o => { try { o.stop(); } catch(e){} });
+    oscillators = []; audioCtx.close(); audioCtx = null;
+    btn.textContent = '🎵'; musicOn = false;
+  }
+}
+
+/* ===== FADE IN ===== */
+document.body.style.opacity = '0';
+document.body.style.transition = 'opacity 0.9s ease';
+requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+</script>
+</body>
+</html>
